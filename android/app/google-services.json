@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "893005630644",
+    "firebase_url": "https://myapp-ee828.firebaseio.com",
+    "project_id": "myapp-ee828",
+    "storage_bucket": "myapp-ee828.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893005630644:android:8d7364c3e22ab2b8c39be1",
+        "android_client_info": {
+          "package_name": "com.example.harraz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893005630644-inrdf67n85qqu8ipccg3cq2nja6pju86.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0bDEpiddKMS4rtuB7I9s63TdJg59N4k8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893005630644-inrdf67n85qqu8ipccg3cq2nja6pju86.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
