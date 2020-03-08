@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dashboard.dart';
 import 'globals.dart' as globals;
 
 final _formKey = GlobalKey<FormState>();
@@ -32,6 +33,9 @@ class Add_Profile extends StatelessWidget {
                       'age': globals.age,
                       'contact': globals.contact
                     });
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => Dashboard()),
+                    );
                   }
                 },
                 child: Text('Next'),

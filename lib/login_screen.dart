@@ -52,11 +52,15 @@ class LoginScreen extends StatelessWidget {
   }
 
   Future<String> _register(LoginData data) async {
-    FirebaseUser user = (await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-            email: data.name, password: data.password)) as FirebaseUser;
+    try {
+      FirebaseUser user = (await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: data.name, password: data.password)) as FirebaseUser;
+    } catch (error) {
+      print(error.code);
+    }
 
-    return null;
+    return "Account Created";
   }
 
   @override
@@ -71,15 +75,18 @@ class LoginScreen extends StatelessWidget {
         onRecoverPassword: _recoverPassword);
   }
 
-  
   Future<void> _profileChecker(BuildContext context) {
-    databaseReference.child(globals.uid).child('profile').once().then((data) => {
-      Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => (data.value == null)? Add_Profile() : Dashboard()
-            ),
-          )
-    });
+    databaseReference
+        .child(globals.uid)
+        .child('profile')
+        .once()
+        .then((data) => {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                    builder: (context) =>
+                        (data.value == null) ? Add_Profile() : Dashboard()),
+              )
+            });
     return null;
   }
 }
