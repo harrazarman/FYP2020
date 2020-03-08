@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:harraz/add_profile.dart';
 import 'login_screen.dart';
 
 void main() {
-  
-
   runApp(MyApp());
 }
 
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
           body1: TextStyle(fontFamily: 'NotoSans'),
         ),
       ),
-      home: LoginScreen(),
+      home: Add_Profile()//LoginScreen(),
     );
   }
 }

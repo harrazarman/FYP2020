@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'globals.dart' as globals;
+
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,6 @@ class Dashboard extends StatelessWidget {
 
 Widget _content() {
   return Container(
-    child: Text('data'),
+    child: Text(globals.uid),
   );
 }
