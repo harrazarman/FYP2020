@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           body1: TextStyle(fontFamily: 'NotoSans'),
         ),
       ),
-      home: Add_Profile()//LoginScreen(),
+      home: LoginScreen(),
     );
   }
 }

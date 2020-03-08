@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:harraz/add_profile.dart';
 import 'dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'globals.dart' as globals;
-
 
 class LoginScreen extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 2250);
@@ -17,7 +17,9 @@ class LoginScreen extends StatelessWidget {
   Future<String> _authUser(LoginData data) async {
     FirebaseUser user;
     try {
-      user = (await FirebaseAuth.instance.signInWithEmailAndPassword(email: data.name, password: data.password)).user;
+      user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
+              email: data.name, password: data.password))
+          .user;
       globals.isLoggedIn = true;
       globals.uid = user.uid;
       return null;
@@ -64,10 +66,20 @@ class LoginScreen extends StatelessWidget {
         onLogin: (data) => _authUser(data),
         onSignup: (data) => _register(data),
         onSubmitAnimationCompleted: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => Dashboard(),
-          ));
+          _profileChecker(context);
         },
         onRecoverPassword: _recoverPassword);
+  }
+
+  
+  Future<void> _profileChecker(BuildContext context) {
+    databaseReference.child(globals.uid).child('profile').once().then((data) => {
+      Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => (data.value == null)? Add_Profile() : Dashboard()
+            ),
+          )
+    });
+    return null;
   }
 }

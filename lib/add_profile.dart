@@ -27,7 +27,7 @@ class Add_Profile extends StatelessWidget {
               child: RaisedButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    databaseReference.child("profile").set({
+                    databaseReference.child(globals.uid).child("profile").set({
                       'name': globals.name,
                       'age': globals.age,
                       'contact': globals.contact
