@@ -1,6 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:harraz/add_profile.dart';
+import 'package:harraz/userInfo.dart';
 
 import 'globals.dart' as globals;
 
@@ -15,19 +17,42 @@ class _Dashboard extends State<Dashboard> {
   String _name = '';
   String _age = '';
   String _contact = '';
+  String _admissionHistory = '';
+  String _bloodType = '';
+  String _medicalCondition = '';
+
+  void saveToGlobals() {
+    print(_name);
+    globals.name = _name;
+    globals.age = _age;
+    globals.contact = _contact;
+    globals.admissionHistory = _admissionHistory;
+    globals.bloodType = _bloodType;
+    globals.medicalCondition = _medicalCondition;
+  }
 
   Future<void> _loadData(BuildContext context) {
+    print('Load Data From Firebase');
     databaseReference
         .child(globals.uid)
         .child('profile')
         .once()
         .then((data) => {
-              setState(() => {
-                    _name = data.value['name'],
-                    _age = data.value['age'],
-                    _contact = data.value['contact']
-                  })
+              globals.name = data.value['name'],
+              globals.age = data.value['age'],
+              globals.contact = data.value['contact']
             });
+
+    databaseReference
+        .child(globals.uid)
+        .child('medical')
+        .once()
+        .then((data) => {
+              globals.admissionHistory = data.value['admission_history'],
+              globals.bloodType = data.value['blood_type'],
+              globals.medicalCondition = data.value['medical_condition']
+            });
+    saveToGlobals();
     return null;
   }
 
@@ -36,26 +61,24 @@ class _Dashboard extends State<Dashboard> {
     if (_name == '') {
       _loadData(context);
     }
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Dashboard',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Dashboard"),
-        ),
-        body: Column(
+    return Scaffold(
+      appBar: AppBar(title: Text('Dashboard')),
+      body: Container(
+        padding: EdgeInsets.all(15),
+        child: ListView(
           children: <Widget>[
-            Container(
-              child: Card(
-                child: Column(
-                  children: <Widget>[
-                    Text("Name $_name"),
-                    Text("Age $_age"),
-                    Text("Contact $_contact"),
-                  ],
-                ),
+            RaisedButton(
+              child: Text('View Info'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => UserInfo()),
               ),
             ),
+            RaisedButton(
+              child: Text('Edit Info'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => Add_Profile()),
+              ),
+            )
           ],
         ),
       ),

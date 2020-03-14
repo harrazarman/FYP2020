@@ -1,13 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:harraz/add_medical_record.dart';
 import 'dashboard.dart';
 import 'globals.dart' as globals;
 
 final _formKey = GlobalKey<FormState>();
 
-class Add_Profile extends StatelessWidget {
+class Add_Medical_Record extends StatelessWidget {
   final databaseReference = FirebaseDatabase.instance.reference();
 
   @override
@@ -22,24 +21,24 @@ class Add_Profile extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _userDetails(),
+            _medicalDetails(),
             Spacer(),
             Container(
               width: double.infinity,
               child: RaisedButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    databaseReference.child(globals.uid).child("profile").set({
-                      'name': globals.name,
-                      'age': globals.age,
-                      'contact': globals.contact
+                    databaseReference.child(globals.uid).child("medical").set({
+                      'admission_history': globals.admissionHistory,
+                      'blood_type': globals.bloodType,
+                      'medical_condition': globals.medicalCondition
                     });
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Add_Medical_Record()),
+                      MaterialPageRoute(builder: (context) => Dashboard()),
                     );
                   }
                 },
-                child: Text('Next'),
+                child: Text('Save'),
               ),
             )
           ],
@@ -49,7 +48,7 @@ class Add_Profile extends StatelessWidget {
   }
 }
 
-Widget _userDetails() {
+Widget _medicalDetails() {
   return Container(
     child: Form(
       key: _formKey,
@@ -57,30 +56,30 @@ Widget _userDetails() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextFormField(
-            decoration: InputDecoration(labelText: 'Name'),
+            decoration: InputDecoration(labelText: 'Admission History'),
             validator: (value) {
               if (value.isEmpty) {
                 return 'Please enter some text';
               }
-              globals.name = value;
+              globals.admissionHistory = value;
             },
           ),
           TextFormField(
-            decoration: InputDecoration(labelText: 'Age'),
+            decoration: InputDecoration(labelText: 'Blood Type'),
             validator: (value) {
               if (value.isEmpty) {
                 return 'Please enter some text';
               }
-              globals.age = value;
+              globals.bloodType = value;
             },
           ),
           TextFormField(
-            decoration: InputDecoration(labelText: 'Contact'),
+            decoration: InputDecoration(labelText: 'Medical Condition'),
             validator: (value) {
               if (value.isEmpty) {
                 return 'Please enter some text';
               }
-              globals.contact = value;
+              globals.medicalCondition = value;
             },
           ),
         ],
