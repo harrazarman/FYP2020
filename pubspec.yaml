@@ -29,6 +29,7 @@ dependencies:
   intl: ^0.15.8
   uuid:
   firebase_auth:
+  qr_code_scanner:
 
 dev_dependencies:
   flutter_test:

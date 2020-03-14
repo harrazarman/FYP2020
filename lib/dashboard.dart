@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:harraz/add_profile.dart';
+import 'package:harraz/qr_scanner.dart';
 import 'package:harraz/userInfo.dart';
 
 import 'globals.dart' as globals;
@@ -78,7 +79,13 @@ class _Dashboard extends State<Dashboard> {
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => Add_Profile()),
               ),
-            )
+            ),
+            RaisedButton(
+              child: Text('Scan QR'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => QRScanner()),
+              ),
+            ),
           ],
         ),
       ),
