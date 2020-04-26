@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:harraz/add_profile.dart';
 import 'package:harraz/qr_scanner.dart';
 import 'package:harraz/userInfo.dart';
+import 'package:harraz/schedule_view.dart';
 
 import 'globals.dart' as globals;
 
@@ -78,6 +79,12 @@ class _Dashboard extends State<Dashboard> {
               child: Text('Edit Info'),
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => Add_Profile()),
+              ),
+            ),
+            RaisedButton(
+              child: Text('Schedules'),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => Schedule_View()),
               ),
             ),
             RaisedButton(

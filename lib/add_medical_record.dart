@@ -28,6 +28,10 @@ class Add_Medical_Record extends StatelessWidget {
               child: RaisedButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
+                    if (globals.uid == '') {
+                      print('UID is empty!');
+                      return null;
+                    }
                     databaseReference.child(globals.uid).child("medical").set({
                       'admission_history': globals.admissionHistory,
                       'blood_type': globals.bloodType,
