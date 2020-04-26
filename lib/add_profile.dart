@@ -29,13 +29,18 @@ class Add_Profile extends StatelessWidget {
               child: RaisedButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
+                    if (globals.uid == '') {
+                      print('UID is empty!');
+                      return null;
+                    }
                     databaseReference.child(globals.uid).child("profile").set({
                       'name': globals.name,
                       'age': globals.age,
                       'contact': globals.contact
                     });
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Add_Medical_Record()),
+                      MaterialPageRoute(
+                          builder: (context) => Add_Medical_Record()),
                     );
                   }
                 },

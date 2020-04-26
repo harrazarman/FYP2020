@@ -15,6 +15,20 @@ class LoginScreen extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<String> _authUser(LoginData data) async {
+
+    if (data.password == '') {
+      print('Empty password');
+      return null;
+    }
+
+    if (data.name == '') {
+      print('Empty name');
+      return null;
+    }
+
+    print(data.password);
+    print(data.name);
+
     FirebaseUser user;
     try {
       user = (await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -22,6 +36,7 @@ class LoginScreen extends StatelessWidget {
           .user;
       globals.isLoggedIn = true;
       globals.uid = user.uid;
+
       return null;
     } catch (error) {
       print(error);
@@ -34,6 +49,11 @@ class LoginScreen extends StatelessWidget {
         case "ERROR_WRONG_PASSWORD":
           {
             return 'Wrong password';
+          }
+          break;
+        case "ERROR_TOO_MANY_REQUESTS":
+          {
+            return 'Too many requset. Try again later';
           }
           break;
         default:
@@ -52,6 +72,9 @@ class LoginScreen extends StatelessWidget {
   }
 
   Future<String> _register(LoginData data) async {
+    print(data.password);
+    print(data.name);
+
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: data.name, password: data.password);
     } catch (error) {

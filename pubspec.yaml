@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -30,6 +30,7 @@ dependencies:
   uuid:
   firebase_auth:
   qr_code_scanner:
+  flutter_datetime_picker:
 
 dev_dependencies:
   flutter_test:
