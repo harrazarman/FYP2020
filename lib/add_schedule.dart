@@ -30,11 +30,8 @@ class _Add_Schedule extends State<Add_Schedule> {
     databaseReference
         .child(globals.uid)
         .child("schedule")
-        .child(day)
-        .update({
-          'title': title,
-          'time': time
-        });
+        .push()
+        .update({'title': title, 'time': time, 'day': day});
 
     Navigator.of(context).pop(
       MaterialPageRoute(builder: (context) => Schedule_View()),
@@ -153,7 +150,7 @@ class _Add_Schedule extends State<Add_Schedule> {
     );
   }
 
-    Widget _card2() {
+  Widget _card2() {
     return Container(
       width: double.infinity,
       child: Card(
@@ -161,10 +158,7 @@ class _Add_Schedule extends State<Add_Schedule> {
           margin: EdgeInsets.all(30),
           child: TextFormField(
             decoration: InputDecoration(labelText: 'Title'),
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter some text';
-              }
+            onChanged: (value) {
               title = value;
             },
           ),

@@ -27,17 +27,12 @@ class _Schedule_View extends State<Schedule_View> {
         .child("schedule")
         .once()
         .then((rs) {
-      List schedule = [];
-      // for (var _schedule in rs.value.values) {
-      //   print(_schedule);
-      //   schedule.add(_schedule);
-      // }
-
-      //print(rs.value['Monday']);
-      print(rs.value['Monday'].values);
-
-
-      data.add('value');
+      for (var _schedule in rs.value.values) {
+        data.add(_schedule);
+      }
+      setState(() {
+        
+      });
     });
     return null;
   }
@@ -47,7 +42,7 @@ class _Schedule_View extends State<Schedule_View> {
     if (data.length == 0) {
       _loadSchedule();
     } else {
-      print(data);
+      //print(data);
     }
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -55,56 +50,71 @@ class _Schedule_View extends State<Schedule_View> {
         title: Text('Schedules'),
       ),
       body: Container(
-          padding: EdgeInsets.all(30),
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: ListView(
-                  children: <Widget>[
-                    Container(
-                      width: double.infinity,
-                      child: RaisedButton(
-                        child: Text('Add'),
-                        onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => Add_Schedule()),
-                        ),
+        padding: EdgeInsets.all(30),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: ListView(
+                children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    child: RaisedButton(
+                      child: Text('Add'),
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => Add_Schedule()),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    child: RaisedButton(
+                      child: Text('Refresh'),
+                      onPressed: () => _loadSchedule(),
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                flex: 5,
-                child: ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return _card(data[index]['day'], data[index]['time']);
-                  },
-                ),
-              )
-            ],
-          ),),
+            ),
+            Expanded(
+              flex: 5,
+              child: ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _card(data[index]['day'], data[index]['time'], data[index]['title']);
+                },
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _card(String day, String time) {
+  Widget _card(String day, String time, String title) {
     return Container(
       width: double.infinity,
       child: Card(
-          child: Container(
-              margin: EdgeInsets.all(10),
-              child: Row(
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(title),
+              Divider(),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Text(day),
                   Divider(),
                   Text(time),
                   Divider(),
-                  RaisedButton(onPressed: null)
                 ],
-              ),),),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
